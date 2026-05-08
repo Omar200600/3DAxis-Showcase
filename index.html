@@ -1,1 +1,60 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>3D Axis | Experience Center</title>
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+    <style>
+        .ui-overlay {
+            position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+            z-index: 100; color: #d4af37; text-align: center; font-family: sans-serif;
+            pointer-events: none; text-shadow: 0 0 10px #000;
+        }
+    </style>
+</head>
+<body>
 
+    <div class="ui-overlay">
+        <h2>تحرك لاستكشاف بوابات 3D Axis</h2>
+        <p>استخدم المس (أو WASD) للتجول</p>
+    </div>
+
+    <a-scene shadow="type: pcfsoft" renderer="antialias: true">
+        <a-sky color="#050505"></a-sky>
+
+        <a-plane rotation="-90 0 0" width="50" height="50" color="#111" metalness="0.8" roughness="0.2"></a-plane>
+
+        <a-light type="ambient" intensity="0.5"></a-light>
+        <a-light type="point" position="0 5 0" intensity="2" color="#d4af37" distance="20"></a-light>
+
+        <a-entity position="-4 0 -6">
+            <a-torus color="#d4af37" radius="1.5" radius-tubular="0.05" animation="property: rotation; to: 0 360 0; dur: 4000; loop: true; easing: linear"></a-torus>
+            <a-text value="LUXURY REAL ESTATE" position="0 2.5 0" align="center" color="#d4af37" width="6"></a-text>
+            <a-box position="0 1 0" scale="2 3 0.1" material="color: #d4af37; opacity: 0.3; transparent: true"></a-box>
+        </a-entity>
+
+        <a-entity position="4 0 -6">
+            <a-torus color="#007bff" radius="1.5" radius-tubular="0.05" animation="property: rotation; to: 0 360 0; dur: 4000; loop: true; easing: linear"></a-torus>
+            <a-text value="PARALLEL EDUCATION" position="0 2.5 0" align="center" color="#007bff" width="6"></a-text>
+            <a-box position="0 1 0" scale="2 3 0.1" material="color: #007bff; opacity: 0.3; transparent: true"></a-box>
+        </a-entity>
+
+        <a-entity position="-4 0 2" rotation="0 90 0">
+            <a-torus color="#28a745" radius="1.5" radius-tubular="0.05" animation="property: rotation; to: 0 360 0; dur: 4000; loop: true; easing: linear"></a-torus>
+            <a-text value="SMART MARKET" position="0 2.5 0" align="center" color="#28a745" width="6"></a-text>
+        </a-box>
+
+        <a-entity position="4 0 2" rotation="0 -90 0">
+            <a-torus color="#6f42c1" radius="1.5" radius-tubular="0.05" animation="property: rotation; to: 0 360 0; dur: 4000; loop: true; easing: linear"></a-torus>
+            <a-text value="AD AGENCY" position="0 2.5 0" align="center" color="#6f42c1" width="6"></a-text>
+        </a-entity>
+
+        <a-entity id="rig" movement-controls position="0 0 0">
+            <a-entity camera look-controls position="0 1.6 0"></a-entity>
+        </a-entity>
+
+    </a-scene>
+
+</body>
+</html>
