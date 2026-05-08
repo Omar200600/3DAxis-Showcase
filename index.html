@@ -1,1 +1,69 @@
+<!DOCTYPE html>
+<html id="htmlPage" lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Axis | Global Portal</title>
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <style>
+        body { margin: 0; background: #000; font-family: 'Segoe UI', sans-serif; overflow: hidden; }
+        .overlay-ui { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 10; pointer-events: none; }
+        .lang-switch { position: absolute; top: 20px; right: 20px; pointer-events: auto; z-index: 20; }
+        .lang-btn { background: rgba(212, 175, 55, 0.2); color: #d4af37; border: 1px solid #d4af37; padding: 5px 15px; cursor: pointer; border-radius: 5px; font-weight: bold; }
+        .container { pointer-events: auto; text-align: center; width: 90%; max-width: 600px; }
+        h1 { color: #d4af37; font-size: 3rem; text-shadow: 0 0 30px rgba(212,175,55,0.8); margin-bottom: 20px; font-weight: 900; }
+        .grid-menu { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .nav-card { padding: 20px; background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 15px; color: #fff; text-decoration: none; transition: 0.4s; font-weight: bold; text-align: center; }
+        .nav-card:hover { background: rgba(212, 175, 55, 0.2); border-color: #d4af37; transform: scale(1.05); }
+    </style>
+</head>
+<body>
 
+    <div class="lang-switch">
+        <button class="lang-btn" onclick="switchLang()">EN | عربي</button>
+    </div>
+
+    <div class="overlay-ui">
+        <div class="container">
+            <h1 id="mainTitle">3D AXIS</h1>
+            <div class="grid-menu">
+                <a href="real-estate.html" class="nav-card" id="btn1">🏢 العقارات الفخمة</a>
+                <a href="#" class="nav-card" id="btn2">🎓 التعليم الموازي</a>
+                <a href="#" class="nav-card" id="btn3">💎 الماركت الذكي</a>
+                <a href="#" class="nav-card" id="btn4">🚀 وكالة الإعلانات</a>
+            </div>
+        </div>
+    </div>
+
+    <a-scene embedded vr-mode-ui="enabled: false">
+        <a-sky color="#000"></a-sky>
+        <a-entity position="0 0 -5">
+            <a-sphere position="1 1 0" radius="0.05" color="#d4af37" animation="property: position; to: -1 -1 0; dur: 3000; loop: true; dir: alternate"></a-sphere>
+        </a-entity>
+    </a-scene>
+
+    <script>
+        let currentLang = 'ar';
+        function switchLang() {
+            const html = document.getElementById('htmlPage');
+            if (currentLang === 'ar') {
+                html.lang = 'en'; html.dir = 'ltr';
+                document.getElementById('mainTitle').innerText = '3D AXIS WORLD';
+                document.getElementById('btn1').innerText = '🏢 Luxury Real Estate';
+                document.getElementById('btn2').innerText = '🎓 Parallel Education';
+                document.getElementById('btn3').innerText = '💎 Smart Market';
+                document.getElementById('btn4').innerText = '🚀 Ad Agency';
+                currentLang = 'en';
+            } else {
+                html.lang = 'ar'; html.dir = 'rtl';
+                document.getElementById('mainTitle').innerText = '3D AXIS';
+                document.getElementById('btn1').innerText = '🏢 العقارات الفخمة';
+                document.getElementById('btn2').innerText = '🎓 التعليم الموازي';
+                document.getElementById('btn3').innerText = '💎 الماركت الذكي';
+                document.getElementById('btn4').innerText = '🚀 وكالة الإعلانات';
+                currentLang = 'ar';
+            }
+        }
+    </script>
+</body>
+</html>
