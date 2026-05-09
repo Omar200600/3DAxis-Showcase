@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Axis - Gateway</title>
+    <title>3D Axis - Celestial Gateway</title>
     <style>
         body {
             margin: 0;
             height: 100vh;
-            background: radial-gradient(circle, #0a0e17 0%, #000000 100%);
+            background: radial-gradient(circle at center, #0d1b2a 0%, #000000 100%);
             overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Arial', sans-serif;
             color: white;
         }
 
@@ -25,33 +25,35 @@
             z-index: 0;
         }
 
-        /* النجمة المركزية المتوهجة */
+        /* النجمة المركزية النابضة */
         .center-star {
             position: absolute;
-            width: 120px;
-            height: 120px;
-            background: #00d4ff;
+            width: 140px;
+            height: 140px;
+            background: #00f2ff;
             clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-            box-shadow: 0 0 50px #00d4ff, 0 0 100px #00d4ff;
+            box-shadow: 0 0 60px #00f2ff, 0 0 120px #00f2ff;
             z-index: 2;
-            animation: pulse 3s infinite ease-in-out;
+            animation: heartBeat 2s infinite ease-in-out;
         }
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); filter: brightness(1); }
-            50% { transform: scale(1.1); filter: brightness(1.5); }
+        @keyframes heartBeat {
+            0% { transform: scale(1); filter: brightness(1); }
+            15% { transform: scale(1.2); filter: brightness(1.8); }
+            30% { transform: scale(1); filter: brightness(1); }
+            45% { transform: scale(1.15); filter: brightness(1.6); }
+            100% { transform: scale(1); filter: brightness(1); }
         }
 
-        /* مدار الأزرار */
+        /* المدار */
         .orbit {
             position: relative;
-            width: 500px;
-            height: 500px;
-            border-radius: 50%;
+            width: 650px;
+            height: 650px;
             display: flex;
             justify-content: center;
             align-items: center;
-            animation: rotateOrbit 20s linear infinite;
+            animation: rotateOrbit 40s linear infinite;
             z-index: 3;
         }
 
@@ -60,27 +62,24 @@
             to { transform: rotate(360deg); }
         }
 
-        /* تصميم الأزرار المربعة الذهبية */
-        .portal-btn {
+        /* الكرات الذهبية ثلاثية الأبعاد */
+        .sphere-btn {
             position: absolute;
-            width: 100px;
-            height: 100px;
-            background: linear-gradient(135deg, #ffd700, #b8860b);
-            border: 2px solid #fff;
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            /* تأثير الكرة ثلاثي الأبعاد باستخدام التدرج الشعاعي */
+            background: radial-gradient(circle at 30% 30%, #ffd700, #b8860b 60%, #5d4506 100%);
+            box-shadow: inset -10px -10px 30px rgba(0,0,0,0.8), 0 0 20px rgba(212, 175, 55, 0.4);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-decoration: none;
-            color: #000;
-            font-weight: bold;
-            font-size: 12px;
-            text-align: center;
-            transition: 0.3s;
             cursor: pointer;
-            /* لمنع دوران النص مع المدار */
-            animation: counterRotate 20s linear infinite;
+            transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: counterRotate 40s linear infinite;
+            border: 1px solid rgba(255, 215, 0, 0.3);
         }
 
         @keyframes counterRotate {
@@ -88,88 +87,130 @@
             to { transform: rotate(-360deg); }
         }
 
-        .portal-btn:hover {
-            box-shadow: 0 0 30px #fff, 0 0 50px #ffd700;
+        /* محتوى الكرة (النص) */
+        .sphere-content {
+            text-align: center;
+            color: #ffffff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.9), 0 0 10px rgba(0,0,0,0.5);
+            pointer-events: none;
+        }
+
+        .sphere-content .ar {
+            display: block;
+            font-size: 18px;
+            font-weight: 900;
+            margin-bottom: 5px;
+        }
+
+        .sphere-content .en {
+            display: block;
+            font-size: 14px;
+            font-weight: bold;
+            opacity: 0.9;
+            letter-spacing: 0.5px;
+        }
+
+        /* التوهج القوي عند الضغط */
+        .sphere-btn:active {
+            transform: scale(0.95);
+            filter: brightness(2) saturate(1.5);
+            box-shadow: 0 0 80px #ffffff, inset 0 0 20px #ffffff;
+        }
+
+        .sphere-btn:hover {
+            box-shadow: 0 0 40px #ffd700, inset 0 0 10px #ffffff;
             transform: scale(1.1);
-            color: #fff;
         }
 
-        /* توهج عند الضغط */
-        .portal-btn:active {
-            filter: brightness(2);
-            box-shadow: 0 0 60px #fff;
-        }
+        /* توزيع الكواكب على المدار */
+        .pos-1 { top: 0; left: 50%; transform: translate(-50%, -50%); } /* الإعلانات - أعلى */
+        .pos-2 { bottom: 0; left: 50%; transform: translate(-50%, 50%); } /* التعليم - أسفل */
+        .pos-3 { left: 0; top: 50%; transform: translate(-50%, -50%); } /* العقارات - يسار */
+        .pos-4 { right: 0; top: 50%; transform: translate(50%, -50%); } /* التجارة - يمين */
 
-        /* تحديد مواقع الأزرار الأربعة */
-        .btn-1 { top: 0; left: 50%; transform: translate(-50%, -50%); }
-        .btn-2 { bottom: 0; left: 50%; transform: translate(-50%, 50%); }
-        .btn-3 { left: 0; top: 50%; transform: translate(-50%, -50%); }
-        .btn-4 { right: 0; top: 50%; transform: translate(50%, -50%); }
-
-        .lang-switch {
+        /* زر اللغة */
+        .lang-toggle {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
-            padding: 10px 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid gold;
-            color: gold;
+            bottom: 30px;
+            right: 30px;
+            padding: 12px 25px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid #ffd700;
+            color: #ffd700;
+            border-radius: 30px;
+            font-weight: bold;
             cursor: pointer;
-            z-index: 10;
+            z-index: 100;
+            transition: 0.3s;
+        }
+
+        .lang-toggle:hover {
+            background: #ffd700;
+            color: black;
         }
     </style>
 </head>
 <body>
 
     <div class="stars-container" id="stars"></div>
+    
     <div class="center-star"></div>
 
     <div class="orbit">
-        <!-- العقارات -->
-        <div class="portal-btn btn-1" onclick="alert('Real Estate')">
-            <span>العقارات</span>
-            <span>Real Estate</span>
+        <div class="sphere-btn pos-1" onclick="console.log('Ads')">
+            <div class="sphere-content">
+                <span class="ar">الإعلانات<br>والعروض العالمية</span>
+                <span class="en">Global Ads & Offers</span>
+            </div>
         </div>
-        <!-- التعليم -->
-        <div class="portal-btn btn-2" onclick="alert('Education')">
-            <span>التعليم</span>
-            <span>Education</span>
+
+        <div class="sphere-btn pos-2" onclick="console.log('Education')">
+            <div class="sphere-content">
+                <span class="ar">التعليم<br>الموازي والافتراضي</span>
+                <span class="en">Parallel & Virtual Education</span>
+            </div>
         </div>
-        <!-- المتجر -->
-        <div class="portal-btn btn-3" onclick="alert('Market')">
-            <span>المتجر</span>
-            <span>Market</span>
+
+        <div class="sphere-btn pos-3" onclick="console.log('Real Estate')">
+            <div class="sphere-content">
+                <span class="ar">العقارات<br>والمدن المستدامة</span>
+                <span class="en">Real Estate & Sustainable Cities</span>
+            </div>
         </div>
-        <!-- الإعلانات (الزر الناقص) -->
-        <div class="portal-btn btn-4" onclick="alert('Ads')">
-            <span>الإعلانات</span>
-            <span>Ads</span>
+
+        <div class="sphere-btn pos-4" onclick="console.log('Commerce')">
+            <div class="sphere-content">
+                <span class="ar">التجارة العالمية<br>والخدمات</span>
+                <span class="en">Global Commerce & Services</span>
+            </div>
         </div>
     </div>
 
-    <button class="lang-switch" onclick="toggleLang()">English / عربي</button>
+    <button class="lang-toggle">English / عربي</button>
 
     <script>
-        // إنشاء خلفية النجوم المتحركة ببطء
+        // إنشاء خلفية النجوم المتحركة
         function createStars() {
             const container = document.getElementById('stars');
-            for (let i = 0; i < 150; i++) {
+            const starCount = 200;
+            for (let i = 0; i < starCount; i++) {
                 const star = document.createElement('div');
+                const size = Math.random() * 2 + 1;
                 star.style.position = 'absolute';
-                star.style.width = Math.random() * 3 + 'px';
-                star.style.height = star.style.width;
-                star.style.background = 'white';
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                star.style.background = '#fff';
                 star.style.borderRadius = '50%';
                 star.style.top = Math.random() * 100 + '%';
                 star.style.left = Math.random() * 100 + '%';
                 star.style.opacity = Math.random();
+                star.style.boxShadow = `0 0 ${size * 2}px #fff`;
                 
-                // حركة بطيئة للنجوم
                 star.animate([
-                    { transform: 'translateY(0px)' },
-                    { transform: `translateY(${Math.random() * 50 - 25}px)` }
+                    { opacity: 0.2, transform: 'scale(0.8)' },
+                    { opacity: 1, transform: 'scale(1.2)' }
                 ], {
-                    duration: 5000 + Math.random() * 5000,
+                    duration: 2000 + Math.random() * 3000,
                     iterations: Infinity,
                     direction: 'alternate'
                 });
@@ -178,11 +219,6 @@
             }
         }
         createStars();
-
-        function toggleLang() {
-            // يمكن إضافة منطق لتبديل النصوص هنا
-            alert("سيتم تبديل واجهة اللغة بالكامل");
-        }
     </script>
 </body>
 </html>
