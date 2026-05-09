@@ -1,44 +1,188 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D AXIS | Virtual Gateway</title>
+    <title>3D Axis - Gateway</title>
     <style>
         body {
-            margin: 0; background: #0a0a0a; color: #d4af37;
-            font-family: 'Segoe UI', sans-serif; overflow: hidden;
-            display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;
-        }
-        /* خلفية النجوم المتحركة */
-        .stars {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
-            z-index: -1;
-        }
-        h1 { font-size: 3rem; text-shadow: 0 0 20px #d4af37; margin-bottom: 40px; }
-
-        .button-container {
-            display: flex; flex-direction: column; gap: 30px; width: 80%; max-width: 400px;
+            margin: 0;
+            height: 100vh;
+            background: radial-gradient(circle, #0a0e17 0%, #000000 100%);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: white;
         }
 
-        .btn-gold {
-            background: transparent; border: 2px solid #d4af37; color: #d4af37;
-            padding: 20px; font-size: 1.2rem; border-radius: 15px; cursor: pointer;
-            text-decoration: none; text-align: center; font-weight: bold;
-            transition: 0.3s; box-shadow: 0 0 10px rgba(212,175,55,0.2);
+        /* فضاء النجوم المتحركة */
+        .stars-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
         }
 
-        .btn-gold:active { transform: scale(0.95); background: #d4af37; color: #000; }
+        /* النجمة المركزية المتوهجة */
+        .center-star {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            background: #00d4ff;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            box-shadow: 0 0 50px #00d4ff, 0 0 100px #00d4ff;
+            z-index: 2;
+            animation: pulse 3s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); filter: brightness(1); }
+            50% { transform: scale(1.1); filter: brightness(1.5); }
+        }
+
+        /* مدار الأزرار */
+        .orbit {
+            position: relative;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: rotateOrbit 20s linear infinite;
+            z-index: 3;
+        }
+
+        @keyframes rotateOrbit {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* تصميم الأزرار المربعة الذهبية */
+        .portal-btn {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #ffd700, #b8860b);
+            border: 2px solid #fff;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            color: #000;
+            font-weight: bold;
+            font-size: 12px;
+            text-align: center;
+            transition: 0.3s;
+            cursor: pointer;
+            /* لمنع دوران النص مع المدار */
+            animation: counterRotate 20s linear infinite;
+        }
+
+        @keyframes counterRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(-360deg); }
+        }
+
+        .portal-btn:hover {
+            box-shadow: 0 0 30px #fff, 0 0 50px #ffd700;
+            transform: scale(1.1);
+            color: #fff;
+        }
+
+        /* توهج عند الضغط */
+        .portal-btn:active {
+            filter: brightness(2);
+            box-shadow: 0 0 60px #fff;
+        }
+
+        /* تحديد مواقع الأزرار الأربعة */
+        .btn-1 { top: 0; left: 50%; transform: translate(-50%, -50%); }
+        .btn-2 { bottom: 0; left: 50%; transform: translate(-50%, 50%); }
+        .btn-3 { left: 0; top: 50%; transform: translate(-50%, -50%); }
+        .btn-4 { right: 0; top: 50%; transform: translate(50%, -50%); }
+
+        .lang-switch {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid gold;
+            color: gold;
+            cursor: pointer;
+            z-index: 10;
+        }
     </style>
 </head>
 <body>
-    <div class="stars"></div>
-    <h1>3D AXIS</h1>
-    <div class="button-container">
-        <a href="./realestate/index.html" class="btn-gold">🏢 العقارات الفخمة | Real Estate</a>
-        <a href="./education/index.html" class="btn-gold">🎓 التعليم الموازي | Education</a>
-        <a href="./market/index.html" class="btn-gold">🛒 الماركت الذكي | Market</a>
+
+    <div class="stars-container" id="stars"></div>
+    <div class="center-star"></div>
+
+    <div class="orbit">
+        <!-- العقارات -->
+        <div class="portal-btn btn-1" onclick="alert('Real Estate')">
+            <span>العقارات</span>
+            <span>Real Estate</span>
+        </div>
+        <!-- التعليم -->
+        <div class="portal-btn btn-2" onclick="alert('Education')">
+            <span>التعليم</span>
+            <span>Education</span>
+        </div>
+        <!-- المتجر -->
+        <div class="portal-btn btn-3" onclick="alert('Market')">
+            <span>المتجر</span>
+            <span>Market</span>
+        </div>
+        <!-- الإعلانات (الزر الناقص) -->
+        <div class="portal-btn btn-4" onclick="alert('Ads')">
+            <span>الإعلانات</span>
+            <span>Ads</span>
+        </div>
     </div>
+
+    <button class="lang-switch" onclick="toggleLang()">English / عربي</button>
+
+    <script>
+        // إنشاء خلفية النجوم المتحركة ببطء
+        function createStars() {
+            const container = document.getElementById('stars');
+            for (let i = 0; i < 150; i++) {
+                const star = document.createElement('div');
+                star.style.position = 'absolute';
+                star.style.width = Math.random() * 3 + 'px';
+                star.style.height = star.style.width;
+                star.style.background = 'white';
+                star.style.borderRadius = '50%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.opacity = Math.random();
+                
+                // حركة بطيئة للنجوم
+                star.animate([
+                    { transform: 'translateY(0px)' },
+                    { transform: `translateY(${Math.random() * 50 - 25}px)` }
+                ], {
+                    duration: 5000 + Math.random() * 5000,
+                    iterations: Infinity,
+                    direction: 'alternate'
+                });
+                
+                container.appendChild(star);
+            }
+        }
+        createStars();
+
+        function toggleLang() {
+            // يمكن إضافة منطق لتبديل النصوص هنا
+            alert("سيتم تبديل واجهة اللغة بالكامل");
+        }
+    </script>
 </body>
 </html>
